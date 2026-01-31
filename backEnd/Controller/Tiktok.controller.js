@@ -1,6 +1,7 @@
 import axios from "axios";
 import fs from "fs";
 import extractTikTokData from "../Config/formater.js";
+import path from "path";
 
 
 export const videoRequest = async (req, res) => {
@@ -27,8 +28,11 @@ export const videoRequest = async (req, res) => {
 
         const TikokData = extractTikTokData(response.data);
 
-        if (!TikokData.video) {
-            return res.status(400).json({ message: "URL is invalid" });
+        if (!TikokData.video.sd_no_watermark) {
+            return res.send({
+                success: false,
+                message: "Video not found"
+            })
         }
 
         const output = {
@@ -42,60 +46,73 @@ export const videoRequest = async (req, res) => {
             tags: TikokData.tags
         };
 
-        res.send(output);
-
-
-    } catch (error) {
-        console.log(error);
         res.send({
-            message: error.message
-        })
-    }
-
-
-}
-
-export const videoDownload = async (req, res) => {
-    const { url } = req.body;
-    if (!url) {
-        return res.status(400).json({ message: "URL is required" });
-    }
-    try {
-        const headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"
-        };
-
-        const VideoData = await axios.get(url, { responseType: 'arraybuffer', headers });
-        const pathName = fs.existsSync("/Downloads") ? "/Downloads" : fs.mkdirSync("/Downloads");
-
-        const fileName = `${Date.now()}.mp4`;
-
-        fs.writeFileSync(`${pathName}/${fileName}`, VideoData.data);
-
-        res.download(`${pathName}/${fileName}`, (err) => {
-            if (err) {
-                console.log(err);
-            }
+            success: true,
+            output
         });
 
 
-
-        const Deletingtime = 10;
-
-        setTimeout(() => {
-            if (fs.existsSync(`${pathName}/${fileName}`)) {
-                fs.unlinkSync(`${pathName}/${fileName}`, (err) => {
-                    if (err) {
-                        console.log(err);
-                    }
-                    console.log("File deleted successfully");
-                });
-            }
-        }, Deletingtime * 1000);
     } catch (error) {
         console.log(error);
         res.send({
             message: error.message
         })
     }
+
+
 }
+
+
+
+
+
+
+
+export const videoDownload = async (req, res) => {
+    const { url } = req.body;
+
+    if (!url) {
+        return res.status(400).json({ message: "URL is required" });
+    }
+
+    try {
+        const downloadDir = path.join(process.cwd(), "downloads");
+
+        if (!fs.existsSync(downloadDir)) {
+            fs.mkdirSync(downloadDir);
+        }
+
+        const fileName = `${Date.now()}.mp4`;
+        const filePath = path.join(downloadDir, fileName);
+
+        const response = await axios.get(url, {
+            responseType: "stream",
+            headers: {
+                "User-Agent":
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"
+            }
+        });
+
+        const writer = fs.createWriteStream(filePath);
+        response.data.pipe(writer);
+
+        writer.on("finish", () => {
+            res.download(filePath, () => {
+                setTimeout(() => {
+                    if (fs.existsSync(filePath)) {
+                        fs.unlinkSync(filePath);
+                    }
+                }, 15000);
+            });
+        });
+
+        writer.on("error", (err) => {
+            console.error(err);
+            res.status(500).json({ message: "File write failed" });
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: error.message });
+    }
+};

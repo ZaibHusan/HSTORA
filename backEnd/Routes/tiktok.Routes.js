@@ -5,6 +5,6 @@ const TiktokRouter = express.Router();
 
 
 TiktokRouter.post("/videoRequest", videoRequest );
-TiktokRouter.get("/videoDownload", videoDownload);
+TiktokRouter.post("/videoDownload", videoDownload);
 
 export default TiktokRouter;

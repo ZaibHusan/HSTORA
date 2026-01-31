@@ -10,7 +10,7 @@ app.use(cors());
 
 
 app.get("/", (req, res) => {
-    res.send("hello");
+    res.send("Server is running...");
 });
 
 app.use("/Tikok", TiktokRouter);

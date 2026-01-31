@@ -1,0 +1,130 @@
+/* Container adjustments to fit your .Center perfectly */
+.HomeCircle {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: #00ff88;
+  font-family: 'Share Tech Mono', monospace; /* Best for hacker look */
+  text-shadow: 0 0 5px rgba(0, 255, 136, 0.5);
+  position: relative;
+}
+
+/* Step Wrapper for smooth transitions */
+.Home-step1, .Home-step2, .Home-step3, .Home-step5 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  animation: hackerFadeIn 0.5s ease-out;
+}
+
+/* Step 1: Input & Title */
+.hstora-home-title {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+}
+
+.Home-step1 input {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid #00ff88;
+  color: #00ff88;
+  padding: 10px;
+  width: 80%;
+  border-radius: 4px;
+  text-align: center;
+  outline: none;
+  font-size: 0.8rem;
+  box-shadow: inset 0 0 5px rgba(0, 255, 136, 0.2);
+}
+
+.Home-step1 hr {
+  width: 40%;
+  border: none;
+  border-top: 1px solid rgba(0, 255, 136, 0.3);
+  margin: 15px 0;
+}
+
+.Home-step1 button {
+  background: transparent;
+  border: 2px solid #00ff88;
+  color: #00ff88;
+  padding: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s all;
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+}
+
+.Home-step1 button:hover {
+  background: #00ff88;
+  color: #000;
+  box-shadow: 0 0 25px #00ff88;
+}
+
+/* Step 2: Processing Animation */
+.hstora-network-icon {
+  animation: rotateSpin 2s infinite linear;
+  margin-bottom: 10px;
+}
+
+.Home-step2 span {
+  font-size: 0.8rem;
+  letter-spacing: 3px;
+  animation: pulseText 1.5s infinite;
+}
+
+/* Step 3: Profile & Media */
+.Tiktok_profile img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 2px solid #00ff88;
+  padding: 3px;
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+}
+
+.Tiktok_info h2 { font-size: 1rem; margin: 5px 0; }
+.Tiktok_info p { font-size: 0.7rem; opacity: 0.7; margin-bottom: 10px; }
+
+/* Global Action Buttons (Step 4 & 5) */
+.HomeCircle button:not(.Home-step1 button) {
+  background: #00ff88;
+  color: #000;
+  border: none;
+  padding: 8px 16px;
+  font-weight: bold;
+  border-radius: 2px;
+  font-size: 0.7rem;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+/* ANIMATIONS */
+@keyframes hackerFadeIn {
+  0% { opacity: 0; transform: scale(0.9) translateY(10px); filter: blur(5px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+}
+
+@keyframes rotateSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulseText {
+  0%, 100% { opacity: 1; text-shadow: 0 0 10px #00ff88; }
+  50% { opacity: 0.4; text-shadow: none; }
+}
+
+/* Responsive Fixes for Small Phones */
+@media screen and (max-width: 400px) {
+  .HomeCircle { padding: 10px; }
+  .hstora-home-title { font-size: 0.75rem; }
+  .Home-step1 input { width: 90%; font-size: 0.7rem; }
+  .Tiktok_profile img { width: 55px; height: 55px; }
+}

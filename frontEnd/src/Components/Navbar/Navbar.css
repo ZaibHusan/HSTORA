@@ -1,0 +1,131 @@
+.Navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 5%;
+    color: #00FE87;
+    font-family: 'JetBrains Mono', monospace;
+    position: relative;
+    z-index: 10;
+}
+
+
+.Navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+
+.logo-symbol {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    background-color: #0B0D0E;
+}
+
+.logo-square {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #00EF7F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.logo-parallelogram {
+    width: 50%;
+    height: 50%;
+    border: 2px solid #00EF7F;
+    transform: rotate(45deg);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-line {
+    position: absolute;
+    width: 80%;
+    height: 5px;
+    background: #00EF7F;
+    animation: lineBlink 3s infinite;
+}
+
+.logo-text h1 {
+    font-size: 1.6rem;
+    color: #00FE87;
+    margin: 0;
+    letter-spacing: 5px;
+}
+
+.logo-text p {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.575);
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+
+.Navbar-right p {
+    margin: 0 10px;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.486);
+    text-shadow: 0 0 6px #00ff6c33;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.Navbar-right p:last-child {
+    color: #00fe8770;
+    text-shadow: 0 0 6px #00fe8770;
+}
+
+
+
+
+@keyframes lineBlink {
+
+    0%,
+    50%,
+    100% {
+        opacity: 0.5;
+        transform: scaleX(0.9);
+    }
+
+    25%,
+    75% {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+}
+
+
+@media (max-width: 768px) {
+    .Navbar {
+        padding: 20px 5%;
+    }
+
+    .Navbar-right {
+        display: none;
+    }
+
+    .logo-text h1 {
+        font-size: 1.3rem;
+    }
+
+    .logo-text p {
+        font-size: 0.65rem;
+    }
+}
+
+@media (max-width:400px) {
+    .logo-text h1 {
+        font-size: 1.2rem;
+    }
+
+    .logo-text p {
+        font-size: 0.5rem;
+    }
+}

@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+
+body {
+  font-family: 'JetBrains Mono', monospace;
+  color: #00ff99; 
+  background-color: #000; 
+}
+
+
+h1, h2, h3, .heading {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+
+input, button {
+  font-family: 'JetBrains Mono', monospace;
+}
