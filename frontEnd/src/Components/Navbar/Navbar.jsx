@@ -1,8 +1,6 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
 import "./Navbar.css"
 export default function Navbar() {
-    const navigate = useNavigate();
     return (
         <header className="Navbar">
             <div className="Navbar-left">
@@ -14,7 +12,7 @@ export default function Navbar() {
                     </div>
                 </div>
                 <div className="logo-text">
-                    <h1 onClick={() => navigate("/")}>HSTORA</h1>
+                    <h1 onClick={() => window.location.reload()}>HSTORA</h1>
                     <p>Professional_TikTok_Downloader</p>
                 </div>
             </div>
